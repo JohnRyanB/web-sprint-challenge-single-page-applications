@@ -3,7 +3,7 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import Form from './pizza'
 import PizzaCart from './pizza-form'
 import * as yup from 'yup'
-import Axios from "axios";
+import axios from "axios";
 
 let schema = yup.object().shape({
   name: yup.string().required().min(2, 'name must be at least 2 characters'),
@@ -13,7 +13,7 @@ let schema = yup.object().shape({
   tomato: yup.boolean(),
   pineapple: yup.boolean(),
   
-  specInstruct: yup
+  special: yup
       .string(),
   
 });
@@ -37,7 +37,6 @@ const initialFormErrors = {
 
 const initialPizza = []
 const initialDisabled = true;
-const fakeAPI = 'https://reques.in/api/users'
 
 const App = () => {
 
@@ -46,25 +45,26 @@ const App = () => {
   const [formErrors, setFormErrors] = useState(initialFormErrors)
   const [disabled, setDisabled] = useState(initialDisabled)
 
-const postNewPizza = (newPizza) => {
-  Axios.post(fakeAPI, newPizza)
-  .then(res => {
+
+
+const formSubmit = () => {
+  const newPizza = {
+    name: formValues.name.trim(),
+    size: formValues.size,
+    cheese: formValues.cheese,
+    pepperoni: formValues.pepperoni,
+    tomato: formValues.tomato,
+    pineapple: formValues.pineapple,
+    special: formValues.special.trim(),
+      }
+  axios.post('https://reqres.in/api/orders', newPizza)
+  .then((res) => {
     setPizzas([res.data, ...pizzas])
   })
   .catch(err => {
     console.log('Error during POST', err )
   })
   .finally(() => {setFormValues(initialFormValues)})
-}
-
-const formSubmit = () => {
-  const newPizza = {
-    name: formValues.name.trim(),
-    size: formValues.size,
-    special: formValues.special.trim(),
-    toppings: ['cheese', 'pepperoni', 'tomato', 'pineapple'].filter((topping) => formValues[topping]),
-  }
-  postNewPizza(newPizza)
 }
 
 const inputChange = (name, value) => {
@@ -121,7 +121,7 @@ useEffect(() => {
         />
       
         {pizzas.map((pizzaCart) => (
-        <PizzaCart ingredients={pizzaCart} key={pizzaCart.name} />
+        <PizzaCart ingredients={pizzaCart} key={pizzaCart+1} />
         ))}
         </Router>
 

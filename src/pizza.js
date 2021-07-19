@@ -48,7 +48,7 @@ export default function Form(props) {
                         type='checkbox'
                         checked={values.cheese}
                         onChange={onChange}
-                        />cheese
+                        />Cheese
                     </label>
                     <label>
                     <input name='pepperoni'

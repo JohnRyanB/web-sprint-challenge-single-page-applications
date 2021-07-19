@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Order (props) {
+export default function PizzaCart (props) {
     const {ingredients} = props
     return(
         <div>

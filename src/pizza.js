@@ -21,8 +21,8 @@ export default function Form(props) {
                 <h2> Lambda Eats Build your PIE</h2>
                 <div>{errors.name}</div>
                 <label> Name:
-                    <input
-                    name='name-input'
+                    <input id= 'name-input'
+                    name='name'
                     type='text'
                     value={values.name}
                     onChange={onChange} />
@@ -30,7 +30,7 @@ export default function Form(props) {
 
                 <div>{errors.size}</div>
                 <label>Pick your Hunger
-                <select name='size-dropdown'
+                <select id='size-dropdown' name='size'
                 value={values.size}
                 onChange={onChange}>
                     <option value=''>Choose a Size</option>
@@ -75,13 +75,14 @@ export default function Form(props) {
 
                 <label>Special Instructions!
                     <input
-                    name='special-text'
+                    id='special-text'
+                    name='special'
                     type='text'
                     values={values.special}
                     onChange={onChange}
                     />
                 </label>
-                <button name='order-pizza' disabled={disabled}>Place Order</button>
+                <button id='order-pizza' name='submit' disabled={disabled}>Place Order</button>
             </form>
         </div>
     )

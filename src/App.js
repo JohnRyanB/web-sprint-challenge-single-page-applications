@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router } from 'react-router-dom'
 import Form from './pizza'
-import Orders from './pizza-form'
+import PizzaCart from './pizza-form'
 import * as yup from 'yup'
 import Axios from "axios";
 
@@ -52,7 +52,7 @@ const postNewPizza = (newPizza) => {
     setPizzas([res.data, ...pizzas])
   })
   .catch(err => {
-    console.log('POST ERR>>>', err )
+    console.log('Error during POST', err )
   })
   .finally(() => {setFormValues(initialFormValues)})
 }
@@ -120,8 +120,8 @@ useEffect(() => {
         errors={formErrors}
         />
       
-        {pizzas.map((order) => (
-        <Orders ingredients={order} key={order.name} />
+        {pizzas.map((pizzaCart) => (
+        <PizzaCart ingredients={pizzaCart} key={pizzaCart.name} />
         ))}
         </Router>
 
